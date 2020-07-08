@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sample_app/authentification/auth.dart';
-import 'package:sample_app/authentification/register.dart';
 import 'package:sample_app/authentification/user.dart';
 
-class Login extends StatefulWidget {
-  _LoginState createState() => _LoginState();
+class Register extends StatefulWidget {
+  _RegisterState createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
   // variables for user email & password
 
   String email = "";
@@ -62,6 +61,25 @@ class _LoginState extends State<Login> {
                             borderRadius: BorderRadius.circular(32.0))),
                   ),
                   SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    obscureText: true,
+                    validator: (val) => val.length < 6
+                        ? 'Enter a password 6+ chars long'
+                        : null,
+                    onChanged: (val) {
+                      setState(() => password = val.trim());
+                    },
+                    decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: 'Confirm Password',
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.purple),
+                            borderRadius: BorderRadius.circular(32.0))),
+                  ),
+                  SizedBox(
                     height: 40,
                   ),
                   Material(
@@ -77,31 +95,6 @@ class _LoginState extends State<Login> {
                           print(user.uid);
                           print(user.email);
                         }
-                      },
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Material(
-                    elevation: 10.0,
-                    borderRadius: BorderRadius.circular(30.0),
-                    color: Color(0xff6c757d),
-                    child: MaterialButton(
-                      minWidth: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Register()));
                       },
                       child: Text(
                         "Sign Up",
